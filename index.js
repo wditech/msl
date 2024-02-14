@@ -14,7 +14,7 @@ app.use(bodyparser.json());
 app.use(cors({ origin: "*" }));
 
 // Conexión a Base de datos
-require("./database");
+require("./database/database");
 
 // import routes
 const authRoutes = require('./routes/auth');
