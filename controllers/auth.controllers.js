@@ -15,7 +15,7 @@ authCtrl.register = async (req, res) => {
 
   const isEmailExist = await User.findOne({ email: req.body.email });
   if (isEmailExist) {
-    return utility.resMessage(res, 400, false, "Email ya registrado");
+    return utility.resMessage(res, 400, false, "Email exists");
   }
 
   // hash contraseña
@@ -42,12 +42,11 @@ authCtrl.login = async (req, res) => {
     return utility.resMessage(res, 400, false, error.details[0].message);
 
   const user = await User.findOne({ email: req.body.email });
-  if (!user)
-    return utility.resMessage(res, 400, false, "Usuario no encontrado");
+  if (!user) return utility.resMessage(res, 400, false, "User not found");
 
   const validPassword = await bcrypt.compare(req.body.password, user.password);
   if (!validPassword)
-    return utility.resMessage(res, 400, false, "contraseña no válida");
+    return utility.resMessage(res, 400, false, "invalid password");
 
   // create token
   const token = jwt.sign(
@@ -57,7 +56,7 @@ authCtrl.login = async (req, res) => {
     },
     process.env.TOKEN_SECRET,
     {
-      expiresIn: "1m", // expires in 1 hour
+      expiresIn: "30m", // expires in 1 hour
     }
   );
 

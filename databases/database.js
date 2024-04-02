@@ -5,7 +5,7 @@ const uri = `mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@wditech.j
 const conn = async () => {
   mongoose
     .connect(uri, {})
-    .then(() => console.log("Base de datos conectada"))
+    .then(() => console.log("Database Online"))
     .catch((e) => console.log("error db:", e));
 };
 

@@ -4,7 +4,7 @@ const utility = require("../helpers/utility.helpers");
 // middleware to validate token (rutas protegidas)
 const verifyToken = (req, res, next) => {
   const token = req.header("auth-token");
-  if (!token) return utility.resMessage(res, 401, false, "Acceso denegado");
+  if (!token) return utility.resMessage(res, 401, false, "Access denied");
   try {
     const verified = jwt.verify(token, process.env.TOKEN_SECRET);
     req.user = verified;
